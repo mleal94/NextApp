@@ -1,65 +1,62 @@
+import React, { useState, useCallback } from "react"
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import Layout from '../components/layout'
+import {Title, SelectUserWidget, SelectList, SelectButton, SelectUserWrapper, LoginPanelImg} from '../components/styled'
 
-export default function Home() {
+const App = () => {
+  const [state, setState] = useState({
+    user:''
+  })
+
+  const selectUser = useCallback((e) => {
+    setState({
+      ...state,
+      user:e.target.value
+    })
+  }, [])
   return (
-    <div className={styles.container}>
+    <Layout>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Boxitas NextJS Chat</title>
+        <link rel='icon' href='/favicon.ico' />
+        {/*TODO REVISAR SEO*/}
+        <meta name="description" content="Boxitas Next Socket.io Chatting app"/>
+        <meta name="keywords" content="nextjs, boxitas,react,socket.io,chatting,javascript" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <SelectUserWrapper>
+        <div style={{width: '100%', minHeight: '100vh', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', padding: '15px'}}>
+          <SelectUserWidget>
+            {/*TODO Adicionar Login curioso; remplazar values con ID*/}
+            <LoginPanelImg src='/assets/LiveChat.png'/>
+            <Title>¿Quieres comunicar con alguien?</Title>
+            <SelectList value={state.user} onChange={(e)=>{selectUser(e)}}>
+              <option value="">¿ Quién eres ?</option>
+              <option value="Carlos Enrique Casemiro">Carlos Enrique Casemiro</option>
+              <option value="Linda Burrow">Linda Burrow</option>
+              <option value="Scarlet Johanson">Scarlet Johanson</option>
+              <option value="Robert Downey Jr">Robert Downey Jr</option>
+              <option value="Marco Aurelio">Marco Aurelio</option>
+              <option value="Cardi B">Cardi B</option>
+            </SelectList>
+            <Link href={`/list?user=${state.user}`} as='/list'>
+              <SelectButton disabled={!state.user}>Entrar</SelectButton>
+            </Link>
+          </SelectUserWidget>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      </SelectUserWrapper>
+    </Layout>
   )
 }
+
+export default App
+
+//TODO Obtener la lista de usuarios del servidor...
+/* export async function getStaticProps(){
+   return {
+     props:{
+       name:'Hola'
+     }
+   }
+ }*/

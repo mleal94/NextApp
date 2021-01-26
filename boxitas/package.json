@@ -2,14 +2,24 @@
   "name": "boxitas",
   "version": "0.1.0",
   "private": true,
+  "author": "Mauricio Leal",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.5",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
     "next": "10.0.5",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "prop-types": "^15.7.2",
+    "react-use": "^12.3.0",
+    "socket.io": "^2.3.0",
+    "styled-components": "^4.4.0"
   }
 }
